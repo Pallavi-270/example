@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Reviewed Questions Page</h1>
+    <div id="quecont" class="card-container"></div>
+</body>
+<script>
+    async function loadreviewque() {
+        try{
+            const response=await fetch
+            if(!response.ok)throw new Error("failed to fetch review ques")
+            const questions = await respone.json();
+        const container=document .getElementById("quecont")
+        container.innerHTML="";
+        questions.forEach(question =>{
+            const card =document.createElement("div")
+            card.className="card";
+            card.innerHTML=`<h3>${question.title}</h3>
+            <p>${question.description}</p>`;
+            container.appendChild(card);
+
+        });
+    }catch(error){
+        console.error("ERROR:",error)
+    }
+        
+    }
+window.onload=loadreviewqu
+</script>
+</html>

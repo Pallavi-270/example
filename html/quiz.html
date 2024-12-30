@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(143, 223, 223);
+    }
+    h1{
+        color:blue;
+    }
+    #quizform{
+        display:flex;
+        flex-direction: column;
+        gap:10px;
+        width:50%;
+    }
+</style>
+<body>
+    <h1>Quiz Management Page</h1>
+    <form id="quizform">
+        <input id="statement" type="text"  placeholder="Question Statement" />
+        <input id="optionA" type="text"  placeholder="Option A" />
+        <input id="optionB" type="text"  placeholder="Option B" />
+        <input id="optionC" type="text"  placeholder="Option C" />
+        <input id="optionD" type="text"  placeholder="Option D" />
+        <input id="Correct Option" type="text"  placeholder="Option A/B/C/D" />
+        
+    </form>
+</body>
+<script>
+    const url="http://localhost:3000/questions"
+    const fetchque =async()=>{
+        const response=await fetch(url);
+        const questions= await response.json();
+        renderQuestions(questions);
+    };
+    const renderQuestions=(question)=>{
+        const container=document.getElementById("quecont");
+        container.innerHTML="";
+        questions.forEach((question)=>{
+            const card =document.createElement('div');
+            card.className='card ${question.reviewedstatus?"reviewed":""}'
+            card.innerHTML=` `;
+            container.appendchild(card);
+        })
+        addEventListener();
+    };
+    document.getElementById(quizform).addEventListener("submit",async(e)=>{
+        e.preventDefault();
+        const question=document.getElementById("question").value;
+        const optionA=document.getElementById("optionA").value;
+        const optionB=document.getElementById("optionB").value;
+        const optionC=document.getElementById("optionC").value;
+        const optionD =document.getElementById("optionD").value;
+        const correctoption=document.getElementById("Correct Option")
+    await fetch (url,{
+        method:'POST',
+        headers:{'content-Type':'application/json'}
+        body:JSON.stringify({
+            qusetion,
+            optionB,
+            optionC,
+            optionD,
+            correctOption,
+            reviewStatus:false,
+        }),
+    });
+    alert("Question Created");
+    e.target.reset();
+    fetchque();
+});
+fetchque();
+</script>
+</html>
